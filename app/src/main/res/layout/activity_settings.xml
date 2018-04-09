@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/fragment1"
-        android:name="com.deitel.flagquiz.SettingsFragment"
+        android:name="com.example.vladislavkudryakov.flagquiz.SettingsFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
