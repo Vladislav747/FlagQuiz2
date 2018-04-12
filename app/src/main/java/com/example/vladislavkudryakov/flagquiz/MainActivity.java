@@ -5,6 +5,7 @@ package com.example.vladislavkudryakov.flagquiz;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -29,8 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         // register listener for SharedPreferences changes
         PreferenceManager.getDefaultSharedPreferences(this).
-                registerOnSharedPreferenceChangeListener(
-                        preferenceChangeListener);
+                registerOnSharedPreferenceChangeListener(preferenceChangeListener);
 // determine screen size
         int screenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
@@ -44,7 +44,26 @@ public class MainActivity extends AppCompatActivity {
             setRequestedOrientation(
                     ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
+    // called after onCreate completes execution
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
 
+        if (preferencesChanged)
+        {
+            // now that the default preferences have been set,
+            // initialize QuizFragment and start the quiz
+            QuizFragment quizFragment = (QuizFragment)
+                    getFragmentManager().findFragmentById(R.id.quizFragment);
+            quizFragment.updateGuessRows(
+                    PreferenceManager.getDefaultSharedPreferences(this));
+            quizFragment.updateRegions(
+                    PreferenceManager.getDefaultSharedPreferences(this));
+            quizFragment.resetQuiz();
+            preferencesChanged = false;
+        }
+    } // end method onStart
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

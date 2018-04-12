@@ -2,11 +2,14 @@ package com.example.vladislavkudryakov.flagquiz;
 
 import android.app.Fragment;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,6 +18,8 @@ import android.widget.TextView;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Melo on 09.04.2018.
@@ -237,7 +242,7 @@ public class QuizFragment extends Fragment {
     }
 
     // called when a guess Button is touched
-    private OnClickListener guessButtonListener = new OnClickListener()
+    private View.OnClickListener guessButtonListener = new View.OnClickListener()
     {
         @Override
         public void onClick(View v)
