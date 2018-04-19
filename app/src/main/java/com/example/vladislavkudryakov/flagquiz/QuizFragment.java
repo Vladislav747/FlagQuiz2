@@ -1,9 +1,13 @@
 package com.example.vladislavkudryakov.flagquiz;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -18,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,7 +36,7 @@ import java.util.Set;
 public class QuizFragment extends Fragment {
     // String used when logging error messages
     private static final String TAG = "FlagQuiz Activity";
-
+    // int used for quatity of flags used
     private static final int FLAGS_IN_QUIZ = 10;
 
     private List<String> fileNameList; // flag file names
@@ -42,7 +47,7 @@ public class QuizFragment extends Fragment {
     private int correctAnswers; // number of correct guesses
     private int guessRows; // number of rows displaying guess Buttons
     private SecureRandom random; // used to randomize the quiz
-    private Handler handler; // used to delay loading next flag
+    private Handler handler; // used to delay loading next flag - Для задержки при переходе на след объект
     private Animation shakeAnimation; // animation for incorrect guess
 
     private TextView questionNumberTextView; // shows current question #
@@ -58,7 +63,7 @@ public class QuizFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view =
                 inflater.inflate(R.layout.fragment_quiz, container, false);
-
+//guessRows и regionsSet инициализируются когда MainActivity вызывает методы updateguessrows и updateRegions
         fileNameList = new ArrayList<String>();
         quizCountriesList = new ArrayList<String>();
         random = new SecureRandom();
@@ -73,7 +78,10 @@ public class QuizFragment extends Fragment {
         questionNumberTextView =
                 (TextView) view.findViewById(R.id.questionNumberTextView);
         flagImageView = (ImageView) view.findViewById(R.id.flagImageView);
+        //Создаем массив данных и 3 места для Layout
         guessLinearLayouts = new LinearLayout[3];
+        //Тут определяем места для всех 3-х мест -
+        //обрати внимание что идет с 0 до 2.
         guessLinearLayouts[0] =
                 (LinearLayout) view.findViewById(R.id.row1LinearLayout);
         guessLinearLayouts[1] =
@@ -87,6 +95,8 @@ public class QuizFragment extends Fragment {
         {
             for (int column = 0; column < row.getChildCount(); column++)
             {
+                //// getChildAt - метод возвращает индекс
+                //Returns the view at the specified position in the group.
                 Button button = (Button) row.getChildAt(column);
                 button.setOnClickListener(guessButtonListener);
             }
@@ -262,7 +272,7 @@ public class QuizFragment extends Fragment {
                 // display correct answer in green text
                 answerTextView.setText(answer + "!");
                 answerTextView.setTextColor(
-                        getResources().getColor(R.color.correct_answer));
+                        getResources().getColor(R.color.Correct_Answer));
 
                 disableButtons(); // disable all guess Buttons
 
