@@ -166,6 +166,7 @@ public class QuizFragment extends Fragment {
         quizCountriesList.clear(); // clear prior list of quiz countries
 
         int flagCounter = 1;
+        //Здесь получаем количество картинок в папке assets - чтобы потом брать по индексу
         int numberOfFlags = fileNameList.size();
 
         // add FLAGS_IN_QUIZ random file names to the quizCountriesList
