@@ -46,6 +46,9 @@ public class QuizFragment extends Fragment {
     private int totalGuesses; // number of guesses made
     private int correctAnswers; // number of correct guesses
     private int guessRows; // number of rows displaying guess Buttons
+
+    private int quizResults;
+
     private SecureRandom random; // used to randomize the quiz
     private Handler handler; // used to delay loading next flag - Для задержки при переходе на след объект
     private Animation shakeAnimation; // animation for incorrect guess
@@ -109,6 +112,8 @@ public class QuizFragment extends Fragment {
     } // end method onCreateView
 
     // update guessRows based on value in SharedPreferences
+    //Использует SharedPreferences чтоб вызвать в соседнем классе mainActivity
+    // переменную количества выбороов(MainActivity.Choices)
     public void updateGuessRows(SharedPreferences sharedPreferences)
     {
         // get the number of guess buttons that should be displayed
@@ -298,16 +303,10 @@ public class QuizFragment extends Fragment {
                                     // "Reset Quiz" Button
                                     builder.setPositiveButton(R.string.reset_quiz,
                                             new DialogInterface.OnClickListener()
-                                            {
-                                                public void onClick(DialogInterface dialog,
-                                                                    int id)
-                                                {
-                                                    resetQuiz();
-                                                }
+                                            {public void onClick(DialogInterface dialog, int id)resetQuiz();}
                                             } // end anonymous inner class
                                     ); // end call to setPositiveButton
-
-                                    return builder.create(); // return the AlertDialog
+                                return builder.create(); // return the AlertDialog
                                 } // end method onCreateDialog
                             }; // end DialogFragment anonymous inner class
 
@@ -327,7 +326,7 @@ public class QuizFragment extends Fragment {
                                 }
                             }, 2000); // 2000 milliseconds for 2-second delay
                 }
-            }
+
             else // guess was incorrect
             {
                 flagImageView.startAnimation(shakeAnimation); // play shake
@@ -351,4 +350,4 @@ public class QuizFragment extends Fragment {
                 guessRow.getChildAt(i).setEnabled(false);
         }
     }
-}
+

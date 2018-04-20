@@ -76,8 +76,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // get the default Display object representing the screen
 
-
-
   Display display = ((WindowManager)
                 getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
         Point screenSize = new Point(); // used to store screen size
