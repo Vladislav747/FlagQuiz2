@@ -220,6 +220,7 @@ public class QuizFragment extends Fragment {
         {
             Log.e(TAG, "Error loading " + nextImage, exception);
         }
+        //
 
         Collections.shuffle(fileNameList); // shuffle file names
 
