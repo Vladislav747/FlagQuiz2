@@ -113,7 +113,7 @@ public class QuizFragment extends Fragment {
 
     // update guessRows based on value in SharedPreferences
     //Использует SharedPreferences чтоб вызвать в соседнем классе mainActivity
-    // переменную количества выбороов(MainActivity.Choices)
+    // переменную количества выбороов(MainActivity.Choices
     public void updateGuessRows(SharedPreferences sharedPreferences)
     {
         // get the number of guess buttons that should be displayed
@@ -287,7 +287,7 @@ public class QuizFragment extends Fragment {
                 if (correctAnswers == FLAGS_IN_QUIZ)
                 {
                     // DialogFragment to display quiz stats and start new quiz
-                    DialogFragment quizResults =
+                    DialogFragment  quizResults =
                             new DialogFragment()
                             {
                                 // create an AlertDialog and return it
@@ -298,19 +298,23 @@ public class QuizFragment extends Fragment {
                                             new AlertDialog.Builder(getActivity());
                                     builder.setCancelable(false);
 
-                                    builder.setMessage(
-                                            getResources().getString(R.string.results,
+                                    builder.setMessage(getResources().getString(R.string.results,
                                                     totalGuesses, (1000 / (double) totalGuesses)));
 
                                     // "Reset Quiz" Button
                                     builder.setPositiveButton(R.string.reset_quiz,
                                             new DialogInterface.OnClickListener()
-                                            {public void onClick(DialogInterface dialog, int id)resetQuiz();}
+                                            {
+                                                public void onClick(DialogInterface dialog, int id)
+                                            {
+                                                resetQuiz();
+                                            }
                                             } // end anonymous inner class
                                     ); // end call to setPositiveButton
                                 return builder.create(); // return the AlertDialog
                                 } // end method onCreateDialog
-                            }; // end DialogFragment anonymous inner class
+                            };
+                // end DialogFragment anonymous inner class
 
                     // use FragmentManager to display the DialogFragment
                     quizResults.show(getFragmentManager(), "quiz results");
@@ -328,6 +332,7 @@ public class QuizFragment extends Fragment {
                                 }
                             }, 2000); // 2000 milliseconds for 2-second delay
                 }
+        }
 
             else // guess was incorrect
             {
@@ -352,4 +357,6 @@ public class QuizFragment extends Fragment {
                 guessRow.getChildAt(i).setEnabled(false);
         }
     }
+}
+
 
